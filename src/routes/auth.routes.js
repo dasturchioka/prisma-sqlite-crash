@@ -11,7 +11,7 @@ router.post("/register", authMiddleware.register, async (req, res) => {
   try {
     const result = await authService.register(req.body);
 
-   res.json({
+   return res.json({
       result,
     });
   } catch (error) {

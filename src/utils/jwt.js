@@ -6,20 +6,12 @@ let tokenSecret = process.env.JWT_SECRET;
 
 module.exports = {
   async signToken(ctx) {
-    jwt.sign(
-      { ctx },
-      tokenSecret,
-      {},
-      (err,
-      (token) => {
-        if (err) {
-          return createError.InternalServerError(
-            "Something went wrong on src/utils/jwt.js"
-          );
-        } else {
-          return token;
-        }
-      })
-    );
+   const token = await jwt.sign({ctx}, tokenSecret)
+
+   if (!token) {
+     createError.InternalServerError('Something went wrong')
+   } else {
+    return token
+   }
   },
 };
