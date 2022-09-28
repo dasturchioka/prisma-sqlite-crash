@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const createError = require("http-errors");
 
 const AuthService = require("../services/auth.service");
 const AuthMiddleware = require("../middlewares/auth.middleware");
@@ -11,11 +10,11 @@ router.post("/register", authMiddleware.register, async (req, res) => {
   try {
     const result = await authService.register(req.body);
 
-   return res.json({
+    res.json({
       result,
     });
   } catch (error) {
-    return createError.InternalServerError(error.message);
+    return res.json({ status: 505, msg: error.message });
   }
 });
 
@@ -27,7 +26,7 @@ router.post("/login", authMiddleware.login, async (req, res) => {
       result,
     });
   } catch (error) {
-    return createError.InternalServerError(error.message);
+    return res.json({ status: 505, msg: error.message });
   }
 });
 
