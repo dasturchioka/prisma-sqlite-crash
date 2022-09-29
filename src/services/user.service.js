@@ -34,10 +34,7 @@ class UserService {
 
   async getUserByName(name) {
     try {
-      const user = await prisma.user.findUnique({ where: { name: name.toUpperCase() } });
-
-      console.log(name.toUpperCase());
-
+      const user = await prisma.user.findUnique({ where: { name } });
       if (!user) {
         return createError.NotFound(`Use not found in this name: ${name}`);
       }
